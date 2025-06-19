@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Категорія 2 - Сторінка 1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Категорія 2 - Сторінка 1</h1>
+  <p>Мінотавр — це броньована "бритва" з барабаном, який стріляє чергою по 3 снаряди. Його головна фішка — дуже міцна башта та низький профіль, що дозволяє добре грати від рельєфу (тобто ховати корпус і стріляти з укриття). Гармата має добру стабілізацію, швидкий набір снарядів у барабані, але довго перезаряджається повністю..</p>
+
+  <body data-image="images/mino.png"></body>
+  <section class="comment-section">
+    <h2>Коментарі</h2>
+    <div id="comments"></div>
+  
+    <form id="commentForm">
+      <textarea id="commentText" placeholder="Ваш коментар..." required></textarea><br>
+      <button type="submit" class="button-link">Надіслати</button>
+    </form>
+  </section>
+  <nav>
+    <a href="page5.html">Стор. 1</a>
+  </nav>
+  <p><a href="index.html">⬅ На головну</a></p>
+
+  <script>
+    const commentsKey = "comments_" + location.pathname;
+  
+    const form = document.getElementById("commentForm");
+    const textarea = document.getElementById("commentText");
+    const container = document.getElementById("comments");
+  
+    function loadComments() {
+      const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+      container.innerHTML = comments.map(comment => `<p>${comment}</p>`).join('');
+    }
+  
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const comment = textarea.value.trim();
+      if (!comment) return;
+  
+      const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+      comments.push(comment);
+      localStorage.setItem(commentsKey, JSON.stringify(comments));
+  
+      textarea.value = "";
+      loadComments();
+    });
+  
+    loadComments();
+  </script>
+
+  
+<script>
+  const body = document.body;
+  const imageSrc = body.dataset.image;
+
+  if (imageSrc) {
+    const img = document.createElement("img");
+    img.src = imageSrc;
+    img.alt = "Ілюстрація до сторінки";
+    img.style.display = "block";
+    img.style.maxWidth = "90%";
+    img.style.margin = "30px auto";
+    img.style.borderRadius = "12px";
+    img.style.boxShadow = "0 0 20px rgba(255,106,0,0.4)";
+    document.body.insertBefore(img, document.querySelector("section.comment-section"));
+  }
+</script>s
+</body>
+</html>

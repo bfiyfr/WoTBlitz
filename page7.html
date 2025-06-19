@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Категорія 3 - Сторінка 1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Категорія 3 - Сторінка 1</h1>
+  <p>T110E3 — це броньований "монстр-черепаха", який повільно їде, але дуже важко пробивається в лоб. Має дуже сильну лобову броню та потужну гармату з високим пробиттям і великим уроном за постріл. Його майже неможливо пробити спереду, якщо правильно ставити корпус, тому він ідеальний для лобових сутичок.
+    .</p>
+    <body data-image="images/t110.png"></body>
+  <section class="comment-section">
+    <h2>Коментарі</h2>
+    <div id="comments"></div>
+  
+    <form id="commentForm">
+      <textarea id="commentText" placeholder="Ваш коментар..." required></textarea><br>
+      <button type="submit" class="button-link">Надіслати</button>
+    </form>
+  </section>
+  <nav>
+    <a href="page8.html">Стор. 2</a> 
+  </nav>
+  <p><a href="index.html">⬅ На головну</a></p>
+
+  <script>
+    const commentsKey = "comments_" + location.pathname;
+  
+    const form = document.getElementById("commentForm");
+    const textarea = document.getElementById("commentText");
+    const container = document.getElementById("comments");
+  
+    function loadComments() {
+      const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+      container.innerHTML = comments.map(comment => `<p>${comment}</p>`).join('');
+    }
+  
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const comment = textarea.value.trim();
+      if (!comment) return;
+  
+      const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+      comments.push(comment);
+      localStorage.setItem(commentsKey, JSON.stringify(comments));
+  
+      textarea.value = "";
+      loadComments();
+    });
+  
+    loadComments();
+  </script>
+
+  
+<script>
+  const body = document.body;
+  const imageSrc = body.dataset.image;
+
+  if (imageSrc) {
+    const img = document.createElement("img");
+    img.src = imageSrc;
+    img.alt = "Ілюстрація до сторінки";
+    img.style.display = "block";
+    img.style.maxWidth = "90%";
+    img.style.margin = "30px auto";
+    img.style.borderRadius = "12px";
+    img.style.boxShadow = "0 0 20px rgba(255,106,0,0.4)";
+    document.body.insertBefore(img, document.querySelector("section.comment-section"));
+  }
+</script>
+</body>
+</html>

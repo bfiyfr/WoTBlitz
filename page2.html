@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Категорія 1 - Сторінка 2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Категорія 1 - Сторінка 2</h1>
+  <p>Об. 268 — це потужна ПТ-шка, яка має високу альфу (урон за постріл) і добре пробиває майже будь-який танк. Вона доволі точна і швидко наводиться, а також має непогану мобільність — може швидко змінювати позиції. Але є й мінуси: погана броня, особливо в корпусі, і малий кут повороту гармати, тому стріляти в русі або з флангів — складно.
+    .</p>
+    <body data-image="images/ob268.png"></body>
+
+  <section class="comment-section">
+    <h2>Коментарі</h2>
+    <div id="comments"></div>
+  
+    <form id="commentForm">
+      <textarea id="commentText" placeholder="Ваш коментар..." required></textarea><br>
+      <button type="submit" class="button-link">Надіслати</button>
+    </form>
+  </section>
+  <nav>
+    <a href="page1.html">Стор. 1</a> |
+    <a href="page3.html">Стор. 3</a>
+  </nav>
+  <p><a href="index.html">⬅ На головну</a></p>
+
+  <script>
+    const commentsKey = "comments_" + location.pathname;
+  
+    const form = document.getElementById("commentForm");
+    const textarea = document.getElementById("commentText");
+    const container = document.getElementById("comments");
+  
+    function loadComments() {
+      const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+      container.innerHTML = comments.map(comment => `<p>${comment}</p>`).join('');
+    }
+  
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const comment = textarea.value.trim();
+      if (!comment) return;
+  
+      const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+      comments.push(comment);
+      localStorage.setItem(commentsKey, JSON.stringify(comments));
+  
+      textarea.value = "";
+      loadComments();
+    });
+  
+    loadComments();
+  
+  </script>
+
+<script>
+  const body = document.body;
+  const imageSrc = body.dataset.image;
+
+  if (imageSrc) {
+    const img = document.createElement("img");
+    img.src = imageSrc;
+    img.alt = "Ілюстрація до сторінки";
+    img.style.display = "block";
+    img.style.maxWidth = "90%";
+    img.style.margin = "30px auto";
+    img.style.borderRadius = "12px";
+    img.style.boxShadow = "0 0 20px rgba(255,106,0,0.4)";
+    document.body.insertBefore(img, document.querySelector("section.comment-section"));
+  }
+</script>
+</body>
+</html>
